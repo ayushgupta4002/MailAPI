@@ -42,10 +42,13 @@ app.post("/send", (req, res) => {
 app.post("/sendtome", (req, res) => {
 
     try {
-        var message = req.body;
-        var title = req.body;
+        var message = req.body.message;
+        var name = req.body.name;
+        var mobile = req.body.mobile;
+        var email = req.body.email;
+        var dtype = req.body.dtype;
         console.log(message);
-        console.log(title);
+ 
 
         var transport = nodemailer.createTransport({
             host: "smtp.gmail.com",
@@ -60,15 +63,15 @@ app.post("/sendtome", (req, res) => {
         });
 
         var mailOptions = {
-            from: `"mojo.in" <${process.env.EMAIL_SENDER}>`,
+            from: `"MOJO.in" <${process.env.EMAIL_SENDER}>`,
             to: process.env.EMAIL_ME,
 
-            subject: `hello mojo1`,
+            subject: `New Request From Mojo`,
             text: `Hey there, Welcome to mojo , Your daily solution to keep you updated`,
-            html: `mojoishere`,
+            html: `<b>Name: </b>  ${name} <p> <b>Mobile:</b> ${mobile} <p> <b>Message: </b> ${message} <p><b>Email: </b>  ${email} <p> <b>Dtype: </b>  ${dtype} <p> `,
 
         };
-
+        
         transport.sendMail(mailOptions, (error, info) => {
             if (error) {
 
